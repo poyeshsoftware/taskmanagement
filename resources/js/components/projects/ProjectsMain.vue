@@ -261,7 +261,7 @@
             tasks: {
                 deep: true,
                 handler: async function () {
-                    if (this.selectedProject && this.tasks && this.tasks.length > 0) {
+                    if (this.selectedProject && this.tasks && this.tasks.data.length > 0) {
                         let response = await axios.post(`/api/projects/${this.selectedProject.id}/tasks/resort`, {
                             tasks: this.tasks.data
                         });

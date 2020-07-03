@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProjectResource;
 use App\models\Step;
 use App\Project;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -73,6 +74,8 @@ class ProjectController extends Controller
 
     public function update(Project $project)
     {
+//        $this->authorize('own', $project);
+
         request()->validate([
             'name' => [
                 'string',

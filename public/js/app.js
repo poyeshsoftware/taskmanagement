@@ -2545,7 +2545,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  if (!(this.selectedProject && this.tasks && this.tasks.length > 0)) {
+                  if (!(this.selectedProject && this.tasks && this.tasks.data.length > 0)) {
                     _context4.next = 4;
                     break;
                   }
