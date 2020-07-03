@@ -5,7 +5,7 @@
 
 ## About TaskManagement Project By Payam Ghader Kourehpaz 
 
-Laravel is a web application framework , I used Laravel Sanctum and Vue.Js for this project
+Laravel is a web application framework , I used Laravel Sanctum , TailWindCss And Vue.Js for this project
 
 ## Installing Project:
 
