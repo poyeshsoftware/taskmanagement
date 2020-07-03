@@ -16,7 +16,6 @@ I'm going to add Unit tests, UI tests and clean up the vue components codes in n
 - change .env.example File to .env and setup .env database information
 - set SANCTUM_STATEFUL_DOMAINS in bottom of .env file to your domain name
 - run command : php artisan key:generate
-
 - run command : php artisan migrate
 - run command : npm rum watch
 - run command : php artisan serve
