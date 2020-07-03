@@ -5,7 +5,8 @@
 
 ## About TaskManagement Project By Payam Ghader Kourehpaz 
 
-Laravel the web application framework , I used Laravel Sanctum , TailWindCss And Vue.Js for this project
+Laravel the web application framework , I used Laravel ,Laravel Sanctum(Airlock) , TailWindCss And Vue.Js for this project.
+it has authentication via Sanctum and authorization via policies that has been handled in the routing section .
 
 ## Installing Project:
 

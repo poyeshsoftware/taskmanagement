@@ -152,12 +152,12 @@
 </template>
 
 <script>
-    import ModalMakeProject from "./ModalMakeProject";
-    import ModalMakeTask from "../tasks/ModalMakeTask";
+    import ModalMakeProject from "./projects/ModalMakeProject";
+    import ModalMakeTask from "./tasks/ModalMakeTask";
 
     import draggable from 'vuedraggable'
-    import DeleteProject from "./DeleteProject";
-    import DeleteTask from "../tasks/DeleteTask";
+    import DeleteProject from "./projects/DeleteProject";
+    import DeleteTask from "./tasks/DeleteTask";
 
     export default {
         name: "ProjectsMain",
