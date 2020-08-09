@@ -3,99 +3,57 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProjectResource;
-use App\Http\Resources\TaskResource;
+use App\Http\Requests\TaskResortRequest;
+use App\Http\Requests\TaskStoreRequest;
 use App\Project;
+use App\Repositories\TaskRepositoryInterface;
 use App\Task;
-use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    private $taskRepository;
+
+    public function __construct(TaskRepositoryInterface $taskRepository)
+    {
+        $this->taskRepository = $taskRepository;
+    }
+
     /**
      * Display a listing of the resources
      */
     public function index(Project $project)
     {
-        return TaskResource::collection($project->tasks);
+        return $this->taskRepository->index($project);
     }
 
 
     /**
      *
      */
-    public function store(Project $project)
+    public function store(Project $project, TaskStoreRequest $request)
     {
-        request()->validate([
-            'name' => [
-                'string',
-                'required',
-                'max:255',
-            ]
-        ]);
-
-        $project->tasks()->create(array_merge(request()->only('name'), [
-            'sort' => $this->getOrder($project)
-        ]));
-
-        $project->refresh();
-
-        return TaskResource::collection($project->tasks);
+        $this->taskRepository->store($project,$request);
+        return $this->taskRepository->index($project);
     }
 
     /**
      *
      */
-    protected function getOrder(Project $project)
+    public function resort(Project $project, TaskResortRequest $request)
     {
-        if (Task::where('project_id', $project->id)->get()->count() == 0) {
-            return 1;
-        } else {
-            $task = Task::where('project_id', $project->id)->orderBy('sort', 'desc')->get()->first();
-            return (($task->sort) + 1);
-        }
+        $this->taskRepository->resort($project,$request);
+
+        return $this->taskRepository->index($project);
     }
 
     /**
      *
      */
-    public function resort(Project $project)
+    public function update(Project $project, Task $task, TaskStoreRequest $request)
     {
-        request()->validate([
-            'tasks' => [
-                'array',
-                'required',
-            ],
-            'tasks.*.id' => ['integer', 'required'],
-            'tasks.*.name' => ['string', 'required', 'max:255'],
-        ]);
+        $this->taskRepository->update($project,$task,$request);
 
-        foreach (request()->tasks as $key => $task) {
-            Task::where('id', $task['id'])->update([
-                'name' => $task['name'],
-                'sort' => $key
-            ]);
-        }
-        $project->refresh();
-
-        return TaskResource::collection($project->tasks);
-    }
-
-    /**
-     *
-     */
-    public function update(Project $project, Task $task)
-    {
-        request()->validate([
-            'name' => [
-                'string',
-                'required',
-                'max:255',
-            ]
-        ]);
-
-        $task->update(request()->only('name'));
-        $project->refresh();
-        return TaskResource::collection($project->tasks);
+        return $this->taskRepository->index($project);
     }
 
     /**
@@ -103,8 +61,8 @@ class TaskController extends Controller
      */
     public function destroy(Project $project, Task $task)
     {
-        $task->delete();
-        $project->refresh();
-        return TaskResource::collection($project->tasks);
+        $this->taskRepository->destroy($project,$task);
+
+        return $this->taskRepository->index($project);
     }
 }

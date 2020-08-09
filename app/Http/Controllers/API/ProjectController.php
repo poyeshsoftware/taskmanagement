@@ -3,98 +3,51 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProjectResource;
-use App\models\Step;
+use App\Http\Requests\ProjectResortRequest;
+use App\Http\Requests\ProjectStoreRequest;
 use App\Project;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
+use App\Repositories\ProjectRepositoryInterface;
 
 class ProjectController extends Controller
 {
+
+    private $projectRepository;
+
+    public function __construct(ProjectRepositoryInterface $projectRepository)
+    {
+        $this->projectRepository = $projectRepository;
+    }
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $projects = auth()->user()->projects;
-
-        return ProjectResource::collection($projects);
+        return $this->projectRepository->index();
     }
 
-    public function store()
+    public function store(ProjectStoreRequest $request)
     {
-        request()->validate([
-            'name' => [
-                'string',
-                'required',
-                'max:255',
-            ]
-        ]);
-
-        auth()->user()->projects()->create(array_merge(request()->only('name'), [
-            'sort' => $this->getOrder()
-        ]));
-
-        return ProjectResource::collection(auth()->user()->projects);
-
+        $this->projectRepository->store($request);
+        return $this->projectRepository->index();
     }
 
-    protected function getOrder()
-    {
-        if (Project::all()->count() === 0) {
-            return 1;
-        } else {
-            $project = Project::orderBy('sort', 'desc')->first();
-            return (($project->sort) + 1);
-        }
 
+    public function resort(ProjectResortRequest $request)
+    {
+        $this->projectRepository->resort($request);
+        return $this->projectRepository->index();
     }
 
-    public function resort()
+    public function update(Project $project, ProjectStoreRequest $request)
     {
-        request()->validate([
-            'projects' => [
-                'array',
-                'required',
-            ],
-            'projects.*.id' => ['integer', 'required'],
-            'projects.*.name' => ['string', 'required', 'max:255'],
-        ]);
-
-        foreach (request()->projects as $key => $project) {
-            Project::where('id', $project['id'])->update([
-                'name' => $project['name'],
-                'sort' => $key
-            ]);
-        }
-        auth()->user()->refresh();
-        return ProjectResource::collection(auth()->user()->projects);
-    }
-
-    public function update(Project $project)
-    {
-//        $this->authorize('own', $project);
-
-        request()->validate([
-            'name' => [
-                'string',
-                'required',
-                'max:255',
-            ]
-        ]);
-
-        $project->update(request()->only('name'));
-        $project->refresh();
-
-        return ProjectResource::collection(auth()->user()->projects);
+        $this->projectRepository->update($project, $request);
+        return $this->projectRepository->index();
     }
 
     public function destroy(Project $project)
     {
-        $project->delete();
-        auth()->user()->refresh();
-        return ProjectResource::collection(auth()->user()->projects);
+        $this->projectRepository->destroy($project);
+        return $this->projectRepository->index();
     }
 }
