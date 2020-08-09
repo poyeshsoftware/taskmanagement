@@ -9,6 +9,8 @@ Laravel is the web application framework , I used Laravel ,Laravel Sanctum(Airlo
 it has authentication via Sanctum and authorization via policies that has been handled in the routing section .
 I'm going to add Unit tests, UI tests and clean up the vue components codes in near future, I'm going to publish and update it on my github.
 
+I Repository Design Pattern on the project
+
 ## Installing Project:
 
 - run command : composer install
