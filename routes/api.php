@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->namespace('API\\')->group(function () {
     Route::get('/projects', 'ProjectController@index');
     Route::post('/projects', 'ProjectController@store');
     Route::post('/projects/resort', 'ProjectController@resort');
@@ -29,7 +28,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/projects/{project:id}/tasks/{task:id}', 'TaskController@destroy')->middleware('can:ownProject,project')->middleware('can:ownTask,task');
 
 });
-
-//Route::middleware('auth:sanctum')->get('/projects', function (Request $request) {
-//    return $request->user();
-//});

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
 use App\Project;
@@ -11,9 +12,7 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of the resources
      */
     public function index(Project $project)
     {
@@ -21,6 +20,9 @@ class TaskController extends Controller
     }
 
 
+    /**
+     *
+     */
     public function store(Project $project)
     {
         request()->validate([
@@ -40,6 +42,9 @@ class TaskController extends Controller
         return TaskResource::collection($project->tasks);
     }
 
+    /**
+     *
+     */
     protected function getOrder(Project $project)
     {
         if (Task::where('project_id', $project->id)->get()->count() == 0) {
@@ -50,6 +55,9 @@ class TaskController extends Controller
         }
     }
 
+    /**
+     *
+     */
     public function resort(Project $project)
     {
         request()->validate([
@@ -72,7 +80,9 @@ class TaskController extends Controller
         return TaskResource::collection($project->tasks);
     }
 
-
+    /**
+     *
+     */
     public function update(Project $project, Task $task)
     {
         request()->validate([
@@ -88,7 +98,9 @@ class TaskController extends Controller
         return TaskResource::collection($project->tasks);
     }
 
-
+    /**
+     *
+     */
     public function destroy(Project $project, Task $task)
     {
         $task->delete();
