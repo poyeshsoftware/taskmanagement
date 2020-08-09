@@ -1,20 +1,19 @@
-<p align="center">
-<a href="https://payam.pro">By Payam Ghader Kourehpaz</a>
+### Video Introduction 
+ [https://payam.pro/taskmanagement.mp4](https://payam.pro/taskmanagement.mp4) 
+ 
+## Task Management Project By Payam Ghader Kourehpaz
+- you have the ability to make projects and asociate tasks to the projects.
+- you have the ability to drag project or task items to resort them and the sorting will be updated automatically
 
-</p>
+Laravel is the web application framework ,I used Laravel Sanctum(Airlock) for authentication, TailWindCss And Vue.Js for the front-end.
+Also It has the authorization via policies that has been handled in the routing section.
 
-## About TaskManagement Project By Payam Ghader Kourehpaz 
+I've also implemented Repository Design Pattern on the project.
 
-Laravel is the web application framework , I used Laravel ,Laravel Sanctum(Airlock) , TailWindCss And Vue.Js for this project.
-it has authentication via Sanctum and authorization via policies that has been handled in the routing section .
-I'm going to add Unit tests, UI tests and clean up the vue components codes in near future, I'm going to publish and update it on my github.
-
-I've implemented Repository Design Pattern on the project
-
-## Installing Project:
+## Step by Step Guideline for Installing Project
 
 - run command : composer install
-- run command : yarn install or npm install 
+- run command : npm install 
 - change .env.example File to .env and setup .env database information
 - set SANCTUM_STATEFUL_DOMAINS in bottom of .env file to your domain name
 - run command : php artisan key:generate
@@ -22,5 +21,10 @@ I've implemented Repository Design Pattern on the project
 - run command : npm rum watch
 - run command : php artisan serve
 
+#### Notice
+- don't forget to set SANCTUM_STATEFUL_DOMAINS in bottom of .env file to your domain name
+
+## Made By :
+Payam Ghader Kourehpaz [https://payam.pro](https://payam.pro)
 
 
