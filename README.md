@@ -1,5 +1,5 @@
 ### Video Introduction 
- [https://payam.pro/taskmanagement.mp4](https://payam.pro/taskmanagement.mp4) 
+ [https://payamblog.com/taskmanagement.mp4](https://payamblog.com/taskmanagement.mp4) 
  
 ## Task Management Project By Payam Ghader Kourehpaz
 - you have the ability to make projects and asociate tasks to the projects.
@@ -25,6 +25,6 @@ I've also implemented Repository Design Pattern on the project.
 - don't forget to set SANCTUM_STATEFUL_DOMAINS in bottom of .env file to your domain name
 
 ## Made By :
-Payam Ghader Kourehpaz [https://payam.pro](https://payam.pro)
+Payam Ghader Kourehpaz [https://payamblog.com](https://payamblog.com)
 
 
